@@ -1,15 +1,21 @@
-import { tareasIniciales } from "./data/tareas";
-import Header from "./components/Header";
-import ListaTareas from "./components/ListaTareas";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
+import { TareasProvider } from "./context/TareasContext";
+import Inicio from "./pages/Inicio";
+import NuevaTarea from "./pages/NuevaTarea";
+import DetalleTarea from "./pages/DetalleTarea";
 
 function App() {
-  const pendientes = tareasIniciales.filter((t) => !t.completada).length;
-
   return (
-    <div>
-      <Header pendientes={pendientes} />
-      <ListaTareas />
-    </div>
+    <TareasProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Inicio />} />
+          <Route path="/nueva" element={<NuevaTarea />} />
+          <Route path="/tarea/:id" element={<DetalleTarea />} />
+        </Routes>
+      </BrowserRouter>
+    </TareasProvider>
   );
 }
 
